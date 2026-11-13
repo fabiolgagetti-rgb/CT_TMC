@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.scijava</groupId>
+        <artifactId>pom-scijava</artifactId>
+        <version>31.1.0</version>
+        <relativePath />
+    </parent>
+
+    <groupId>br.unifesp</groupId>
+    <artifactId>SSDE</artifactId>
+    <version>0.1.0</version>
+
+    <name>SSDE</name>
+    <description>A plugin to calculate SSDE from CT images.</description>
+    <url>https://github.com/FabioGagetti/SSDE</url>
+    <inceptionYear>2025</inceptionYear>
+    <organization>
+        <name>UNIFESP</name>
+        <url>https://unifesp.br/</url>
+    </organization>
+    
+    <licenses>
+        <license>
+            <name>None</name>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Fabio Leone Gagetti</name>
+            <url>https://github.com/FabioGagetti</url>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor> <name>None</name></contributor>
+    </contributors>
+
+    <mailingLists>
+<mailingList>
+        <name>None</name>
+    </mailingList>    </mailingLists>
+
+    <scm>
+        <connection>scm:git:https://github.com/FabioGagetti/SSDE.git</connection>
+        <developerConnection>scm:git:https://github.com/FabioGagetti/SSDE.git</developerConnection>
+        <url>https://github.com/FabioGagetti/SSDE</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/FabioGagetti/SSDE/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>GitHub Actions</system>
+        <url>https://github.com/FabioGagetti/SSDE/actions</url>
+    </ciManagement>
+
+    <properties>
+        <package-name>br.unifesp.fisicamedica</package-name>
+        <main-class>br.unifesp.fisicamedica.Gerenciador</main-class>
+        <license.licenseName>MIT License</license.licenseName>
+        <license.copyrightOwners>UNIFESP</license.copyrightOwners>
+    </properties>
+
+    <repositories>
+    
+        <repository>
+            <id>scijava.public</id>
+            <url>https://maven.scijava.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+    <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-math3</artifactId>
+    <version>3.6.1</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.vacco.savitzky-golay/savitzky-golay -->
+<dependency>
+    <groupId>io.vacco.savitzky-golay</groupId>
+    <artifactId>savitzky-golay</artifactId>
+    <version>1.0.1</version>
+</dependency>
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>imagej</artifactId>
+            <version>imagej-2.0.0-rc-69</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.imagej</groupId>
+                    <artifactId>ij</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>ij</artifactId>
+            <version>1.54i</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scijava</groupId>
+            <artifactId>scijava-common</artifactId>
+            <version>2.99.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.27.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scijava</groupId>
+            <artifactId>scijava-ui-swing</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>br.unifesp.fisicamedica.MainClass</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
